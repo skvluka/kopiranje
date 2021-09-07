@@ -1,4 +1,5 @@
 import os
+import sys
 import fnmatch
 from shutil import copyfile
 import shutil
@@ -17,3 +18,9 @@ for file50 in os.listdir('.'):
     if fnmatch.fnmatch(file50, '*_5020'):
         #print(file50)
         shutil.copy(file50,fo50)
+
+#fixanje crasha exea
+if getattr(sys, 'frozen', False):
+    application_path = os.path.dirname(sys.executable)
+elif __file__:
+    application_path = os.path.dirname(__file__)
