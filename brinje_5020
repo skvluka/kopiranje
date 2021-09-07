@@ -1,0 +1,37 @@
+import fileinput
+import re
+import time
+import pyperclip
+import os
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+fo = open('test.txt', 'r')
+
+chromedriver = "/bin/chromedriver"
+os.environ["webdriver.chrome.driver"] = chromedriver
+driver = webdriver.Chrome(chromedriver)
+
+driver.get("https://batchgeo.com/")
+driver.find_element_by_id("sourceWrap").click()
+time.sleep(1)
+
+
+driver.find_element_by_id("sourceData").clear()
+
+##list = []
+##for line in fo:
+##    a = line.strip().split('\t')
+##    for i in range(0,len(a)):
+##        if i == 0:
+##            b = a[i]
+##            driver.find_element_by_id("sourceData").send_keys(b)
+##        else:
+##            b = '\t' + a[i]
+##            driver.find_element_by_id("sourceData").send_keys(b)
+##    driver.find_element_by_id("sourceData").send_keys('\n')
+    
+for line in fo:
+    a = line.strip()
+    driver.find_element_by_id("sourceData").send_keys(a + '\n')
+    

@@ -1,0 +1,29 @@
+import time
+import pyperclip
+import os
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+fo = open("/home/korisnik/Desktop/Projekti/Batchgeo/Slanje na web/test.txt", 'r').read()
+pyperclip.copy(fo)
+text = pyperclip.paste()
+print(text)
+
+chromedriver = "/bin/chromedriver"
+os.environ["webdriver.chrome.driver"] = chromedriver
+driver = webdriver.Chrome(chromedriver)
+
+def paste_keys(self, xpath, text):
+    os.system("echo %s| clip" % text.strip())
+    el = self.driver.find_element_by_xpath(xpath)
+    el.send_keys(Keys.CONTROL, 'v')
+
+driver.get("https://batchgeo.com/")
+driver.find_element_by_id("sourceWrap").click()
+time.sleep(2)
+driver.find_element_by_id("sourceData").send_keys(text)
+
+
+
+time.sleep(8)
+#driver.quit()
